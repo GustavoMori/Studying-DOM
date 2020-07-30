@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise Manipulating DOM</title>
+</head>
+<body>
+    <div id="app">
+        <button class="create">Crie um quadrado vermelho na tela!</button>
+    </div>
+    <script>
+        // Selecting the button
+        var btnSelected = document.querySelector('button.create');
+        // Creating new redsquares onclick
+        btnSelected.onclick = function () {
+            var createDiv = document.createElement('div');
+            createDiv.setAttribute('class', 'redstyle');
+            createDiv.style.width = "100px";
+            createDiv.style.height = "100px";
+            createDiv.style.backgroundColor = "#f00";
+            createDiv.setAttribute('onmouseover', 'changeColor(this)')
+            var containerNewSquare = document.querySelector('#app');
+            containerNewSquare.appendChild(createDiv);
+        };
+        // Function generating new random color
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+                }
+            return color;
+        };
+        // Creating a newColor to attribute
+        function changeColor(xablau){
+            newColor = getRandomColor();
+            xablau.style.backgroundColor = newColor;
+        };
+        // Manipulating Array
+        var nomes = ["Diego", "Gabriel", "Lucas"];
+
+        // Creating list UL
+        var createUl = document.createElement('ul');
+
+        // Append Ul to div#app
+        var containerElement = document.querySelector('#app');
+        containerElement.appendChild(createUl);
+
+        // Creating list LI
+        function addLi(item, index){
+            var createLi = document.createElement('li')
+            createUl.appendChild(createLi)
+            var textElement = document.createTextNode(item)
+            createLi.appendChild(textElement)
+        };
+        nomes.forEach(addLi);
+
+        // Creating input
+        var createInput = document.createElement('input');
+        createInput.setAttribute('type', 'text');
+        createInput.setAttribute('name', 'nome');
+        containerElement.appendChild(createInput);
+
+        // Creating button
+        var createButton = document.createElement('button');
+        createButton.setAttribute('onclick', 'adicionar()');
+        var textButton = document.createTextNode('Adicionar');
+        containerElement.appendChild(createButton);
+        createButton.appendChild(textButton);
+
+        // Function to interate the list and clean the input
+        var inputElement = document.querySelector('input[name=nome]')
+        function adicionar() {
+            var text = inputElement.value
+            text = [text]
+            nomes.push(text)
+            text.forEach(addLi)
+            inputElement.value = ''
+        };
+    </script>
+</body>
+</html>
